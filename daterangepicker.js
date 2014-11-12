@@ -342,7 +342,7 @@
 
                 // add select menu after end date input field
                 this.container.find('.daterangepicker_end_input').after(
-                    '<select class="presetSelect" style="width:30%;margin:0;height: 35px; padding-top: 4px; padding-bottom: 4px;">' +
+                    '<select class="presetSelect small">' +
 
                         preset_options.reduce(function(options, preset){
                             var option = '<option value="' + preset.value + '" ' + (preset.default ? 'selected="true"' : '') + '>' +
