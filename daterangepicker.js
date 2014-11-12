@@ -345,7 +345,7 @@
                     '<select class="presetSelect small">' +
 
                         preset_options.reduce(function(options, preset){
-                            var option = '<option value="' + preset.value + '" ' + (preset.default ? 'selected="true"' : '') + '>' +
+                            var option = '<option value="' + preset.value + '">' +
                                             preset.name +
                                          '</option>';
 
@@ -766,6 +766,20 @@
 
             this.isShowing = true;
             this.element.trigger('show.daterangepicker', this);
+
+            // if presets are enabled, set the default select value when the picker is opened
+            if (this.showPresets) {
+                var $presetSelect = this.container.find('.presetSelect');
+                var defaultOption = $.grep(this.DATES, function (preset) {
+                    return preset.default === true;
+                });
+
+                // if a default option is found, set it.
+                if (defaultOption.length) {
+                    setPresetSelectOption(defaultOption[0].value);
+                    $presetSelect.trigger('change.daterangepicker', this);
+                }
+            }
         },
 
         outsideClick: function (e) {
