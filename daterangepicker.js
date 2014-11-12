@@ -32,6 +32,83 @@
   }
 
 }(this, function(root, daterangepicker, moment, $) {
+    var today = moment();
+
+    // helper methods for getting date ranges of default presets
+    var ranges = {
+        today: function () {
+            return {
+                from: today,
+                to: today
+            };
+        },
+        yesterday: function () {
+            return {
+                from: moment().subtract(1, 'days'),
+                to: moment().subtract(1, 'days')
+            };
+        },
+        thisWeek: function () {
+            return {
+                from: moment().startOf('week'),
+                to: today
+            };
+        },
+        lastWeek: function () {
+            return {
+                from: moment().subtract(1, 'weeks').startOf('week'),
+                to: moment().subtract(1, 'weeks').endOf('week')
+            };
+        },
+        last7days: function () {
+            return {
+                from: moment().subtract(7, 'days'),
+                to: today
+            };
+        },
+        last14days: function () {
+            return {
+                from: moment().subtract(14, 'days'),
+                to: today
+            };
+        },
+        last28days: function () {
+            return {
+                from: moment().subtract(28, 'days'),
+                to: today
+            };
+        },
+        last30days: function () {
+            return {
+                from: moment().subtract(30, 'days'),
+                to: today
+            };
+        },
+        last90days: function () {
+            return {
+                from: moment().subtract(90, 'days'),
+                to: today
+            };
+        },
+        thisMonth: function () {
+            return {
+                from: moment().startOf('month'),
+                to: today
+            };
+        },
+        lastMonth: function () {
+            return {
+                from: moment().subtract(1, 'months').startOf('month'),
+                to: moment().subtract(1, 'months').endOf('month')
+            };
+        },
+        last3months: function () {
+            return {
+                from: moment().subtract(3, 'months').startOf('month'),
+                to: moment().subtract(1, 'months').endOf('month')
+            };
+        },
+    };
 
     var DateRangePicker = function (element, options, cb) {
 
@@ -126,114 +203,97 @@
 
         constructor: DateRangePicker,
 
-        DATES : [
+        DATES: [
             {
               name:  'Today',
-              value: 'today'
+              value: 'today',
+              range: function () {
+                return ranges.today();
+              }
             },
             {
               name:  'Yesterday',
-              value: 'yesterday'
+              value: 'yesterday',
+              range: function () {
+                return ranges.yesterday();
+              }
             },
             {
               name:  'This week',
-              value: 'this_week'
+              value: 'this_week',
+              range: function () {
+                return ranges.thisWeek();
+              }
             },
             {
               name:  'Last week',
-              value: 'last_week'
+              value: 'last_week',
+              range: function () {
+                return ranges.lastWeek();
+              }
             },
             {
               name:  'Last 7 days',
-              value: 'last_7_days'
+              value: 'last_7_days',
+              range: function () {
+                return ranges.last7days();
+              }
             },
             {
               name:  'Last 14 days',
-              value: 'last_14_days'
+              value: 'last_14_days',
+              range: function () {
+                return ranges.last14days();
+              }
             },
             {
               name:  'Last 28 days',
-              value: 'last_28_days'
+              value: 'last_28_days',
+              range: function () {
+                return ranges.last28days();
+              }
             },
             {
               name:  'Last 30 days',
-              value: 'last_30_days'
+              value: 'last_30_days',
+              default: true,
+              range: function () {
+                return ranges.last30days();
+              }
             },
             {
               name:  'Last 90 days',
-              value: 'last_90_days'
+              value: 'last_90_days',
+              range: function () {
+                return ranges.last90days();
+              }
             },
             {
               name:  'This month',
-              value: 'this_month'
+              value: 'this_month',
+              range: function () {
+                return ranges.thisMonth();
+              }
             },
             {
               name:  'Last month',
-              value: 'last_month'
+              value: 'last_month',
+              range: function () {
+                return ranges.lastMonth();
+              }
             },
             {
               name:  'Last 3 months',
-              value: 'last_3_months'
+              value: 'last_3_months',
+              range: function () {
+                return ranges.last3months();
+              }
             },
             {
               name:  'Custom',
               value: 'custom'
             }
         ],
-
-        DATE_RANGE: (function () {
-                        var today = moment();
-                        return {
-                            TODAY: {
-                                from: today,
-                                to: today
-                            },
-                            YESTERDAY: {
-                                from: moment().subtract(1, 'days'),
-                                to: moment().subtract(1, 'days')
-                            },
-                            THIS_WEEK: {
-                                from: moment().startOf('week'),
-                                to: today
-                            },
-                            LAST_WEEK: {
-                                from: moment().subtract(1, 'weeks').startOf('week'),
-                                to: moment().subtract(1, 'weeks').endOf('week')
-                            },
-                            LAST_7_DAYS: {
-                                from: moment().subtract(7, 'days'),
-                                to: today
-                            },
-                            LAST_14_DAYS: {
-                                from: moment().subtract(14, 'days'),
-                                to: today
-                            },
-                            LAST_28_DAYS: {
-                                from: moment().subtract(28, 'days'),
-                                to: today
-                            },
-                            LAST_30_DAYS: {
-                                from: moment().subtract(30, 'days'),
-                                to: today
-                            },
-                            LAST_90_DAYS: {
-                                from: moment().subtract(90, 'days'),
-                                to: today
-                            },
-                            THIS_MONTH: {
-                                from: moment().startOf('month'),
-                                to: today
-                            },
-                            LAST_MONTH: {
-                                from: moment().subtract(1, 'months').startOf('month'),
-                                to: moment().subtract(1, 'months').endOf('month')
-                            },
-                            LAST_3_MONTHS: {
-                                from: moment().subtract(3, 'months').startOf('month'),
-                                to: moment().startOf('month')
-                            },
-                        };
-        }()),
 
         setOptions: function(options, callback) {
             this.startDate = moment().startOf('day');
@@ -276,19 +336,25 @@
             this.cb = function () { };
 
             if (options.showPresets) {
+                var preset_options = options.preset instanceof Array ? options.preset : this.DATES;
+
+                this.showPresets = true;
+
                 // add select menu after end date input field
                 this.container.find('.daterangepicker_end_input').after(
                     '<select class="presetSelect" style="width:30%;margin:0;height: 35px; padding-top: 4px; padding-bottom: 4px;">' +
 
-                        this.DATES.reduce(function(options, date){
-                            var option = '<option value="' + date.value + '"">' +
-                                            date.name +
+                        preset_options.reduce(function(options, preset){
+                            var option = '<option value="' + preset.value + '" ' + (preset.default ? 'selected="true"' : '') + '>' +
+                                            preset.name +
                                          '</option>';
+
                             return options += option;
                         }, '') +
 
                     '</select>'
                 );
+                this.container.trigger('change.daterangepicker', this);
             }
 
             if (typeof options.format === 'string')
@@ -442,48 +508,6 @@
                 }
             }
 
-            if (typeof options.ranges === 'object') {
-                for (range in options.ranges) {
-
-                    if (typeof options.ranges[range][0] === 'string')
-                        start = moment(options.ranges[range][0], this.format);
-                    else
-                        start = moment(options.ranges[range][0]);
-
-                    if (typeof options.ranges[range][1] === 'string')
-                        end = moment(options.ranges[range][1], this.format);
-                    else
-                        end = moment(options.ranges[range][1]);
-
-                    // If we have a min/max date set, bound this range
-                    // to it, but only if it would otherwise fall
-                    // outside of the min/max.
-                    if (this.minDate && start.isBefore(this.minDate))
-                        start = moment(this.minDate);
-
-                    if (this.maxDate && end.isAfter(this.maxDate))
-                        end = moment(this.maxDate);
-
-                    // If the end of the range is before the minimum (if min is set) OR
-                    // the start of the range is after the max (also if set) don't display this
-                    // range option.
-                    if ((this.minDate && end.isBefore(this.minDate)) || (this.maxDate && start.isAfter(this.maxDate))) {
-                        continue;
-                    }
-
-                    this.ranges[range] = [start, end];
-                }
-
-                var list = '<ul>';
-                for (range in this.ranges) {
-                    list += '<li>' + range + '</li>';
-                }
-                list += '<li>' + this.locale.customRangeLabel + '</li>';
-                list += '</ul>';
-                this.container.find('.ranges ul').remove();
-                this.container.find('.ranges').prepend(list);
-            }
-
             if (typeof callback === 'function') {
                 this.cb = callback;
             }
@@ -592,10 +616,11 @@
         addDaysToCustomPresetText: function () {
             var $presetSelect = this.container.find(".presetSelect");
             var days = this.endDate.diff(this.startDate, 'days');
-            var daysText = days === 1 ? 'day' : 'days';
 
             // days are up to but not including, manually adjust for that
             days += 1;
+
+            var daysText = days === 1 ? 'day' : 'days';
 
             $presetSelect
                 .find('option[value="custom"]')
@@ -820,15 +845,15 @@
         presetChanged: function (event) {
             event.stopPropagation();
 
-            var $el = $(event.target);
-            var preset = $el.val();
+            var preset = event.target.value;
 
             // display number of days selected
             if (preset === 'custom') {
                 this.addDaysToCustomPresetText();
             } else {
                 var $presetSelect = this.container.find(".presetSelect");
-                var range = this.DATE_RANGE[preset.toUpperCase()];
+                var index = event.target.selectedIndex;
+                var range = this.DATES[index].range();
 
                 // reset the Custom select option text
                 $presetSelect.find('option[value="custom"]').text('Custom');
