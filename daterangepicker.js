@@ -776,7 +776,7 @@
 
                 // if a default option is found, set it.
                 if (defaultOption.length) {
-                    setPresetSelectOption(defaultOption[0].value);
+                    this.setPresetSelectOption(defaultOption[0].value);
                     $presetSelect.trigger('change.daterangepicker', this);
                 }
             }
