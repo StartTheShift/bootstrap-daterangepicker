@@ -32,80 +32,82 @@
   }
 
 }(this, function(root, daterangepicker, moment, $) {
-    var today = moment();
+    var today = function(){
+      return moment().startOf('day');
+    }
 
     // helper methods for getting date ranges of default presets
     var ranges = {
         today: function () {
             return {
-                from: today,
-                to: today
+                from: today(),
+                to: today()
             };
         },
         yesterday: function () {
             return {
-                from: moment().subtract(1, 'days'),
-                to: moment().subtract(1, 'days')
+                from: today().subtract(1, 'days'),
+                to: today().subtract(1, 'days')
             };
         },
         thisWeek: function () {
             return {
-                from: moment().startOf('week'),
-                to: today
+                from: today().startOf('week'),
+                to: today()
             };
         },
         lastWeek: function () {
             return {
-                from: moment().subtract(1, 'weeks').startOf('week'),
-                to: moment().subtract(1, 'weeks').endOf('week')
+                from: today().subtract(1, 'weeks').startOf('week'),
+                to: today().subtract(1, 'weeks').endOf('week')
             };
         },
         last7days: function () {
             return {
-                from: moment().subtract(7, 'days'),
-                to: today
+                from: today().subtract(7, 'days'),
+                to: today()
             };
         },
         last14days: function () {
             return {
-                from: moment().subtract(14, 'days'),
-                to: today
+                from: today().subtract(14, 'days'),
+                to: today()
             };
         },
         last28days: function () {
             return {
-                from: moment().subtract(28, 'days'),
-                to: today
+                from: today().subtract(28, 'days'),
+                to: today()
             };
         },
         last30days: function () {
             return {
-                from: moment().subtract(30, 'days'),
-                to: today
+                from: today().subtract(30, 'days'),
+                to: today()
             };
         },
         last90days: function () {
             return {
-                from: moment().subtract(90, 'days'),
-                to: today
+                from: today().subtract(90, 'days'),
+                to: today()
             };
         },
         thisMonth: function () {
             return {
-                from: moment().startOf('month'),
-                to: today
+                from: today().startOf('month'),
+                to: today()
             };
         },
         lastMonth: function () {
             return {
-                from: moment().subtract(1, 'months').startOf('month'),
-                to: moment().subtract(1, 'months').endOf('month')
+                from: today().subtract(1, 'months').startOf('month'),
+                to: today().subtract(1, 'months').endOf('month')
             };
         },
         last3months: function () {
             return {
-                from: moment().subtract(3, 'months').startOf('month'),
-                to: moment().subtract(1, 'months').endOf('month')
+                from: today().subtract(3, 'months').startOf('month'),
+                to: today().subtract(1, 'months').endOf('month')
             };
         },
     };
