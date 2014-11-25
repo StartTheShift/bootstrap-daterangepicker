@@ -567,7 +567,7 @@
 
             if (!this.timePicker) {
                 this.startDate = this.startDate.startOf('day');
-                this.endDate = this.endDate.endOf('day');
+                this.endDate = this.endDate.startOf('day');
             }
 
             if (this.singleDatePicker) {
