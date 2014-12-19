@@ -36,7 +36,8 @@
       return moment().startOf('day');
     }
 
-    // helper methods for getting date ranges of default presets
+    // helper methods for getting date ranges of default presets. methods returning
+    // "last<x>days" are inclusive of the current day and go back to today - (x - 1).
     var ranges = {
         today: function () {
             return {
@@ -64,31 +65,31 @@
         },
         last7days: function () {
             return {
-                from: today().subtract(7, 'days'),
+                from: today().subtract(6, 'days'),
                 to: today()
             };
         },
         last14days: function () {
             return {
-                from: today().subtract(14, 'days'),
+                from: today().subtract(13, 'days'),
                 to: today()
             };
         },
         last28days: function () {
             return {
-                from: today().subtract(28, 'days'),
+                from: today().subtract(27, 'days'),
                 to: today()
             };
         },
         last30days: function () {
             return {
-                from: today().subtract(30, 'days'),
+                from: today().subtract(29, 'days'),
                 to: today()
             };
         },
         last90days: function () {
             return {
-                from: today().subtract(90, 'days'),
+                from: today().subtract(89, 'days'),
                 to: today()
             };
         },
